@@ -1,0 +1,36 @@
+server:
+  port: 8080
+  shutdown: graceful
+
+spring:
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+  messages:
+    basename: i18n/messages
+    encoding: UTF-8
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://127.0.0.1:3306/platformdb
+    username: sup
+    password: 1142302o7oP
+
+mybatis-plus:
+  type-aliases-package: com.pxg.example.domain
+  configuration:
+    map-underscore-to-camel-case: true
+    cache-enabled: false
+    jdbc-type-for-null: null
+  mapper-locations: classpath:mapper/*Mapper.xml
+
+
+worker-config:
+  centerUri: http://localhost:8080
+  handlerCode: RC
+  heartbeatTime: 30
+  initDelay: 5
+  port: 8080
+
