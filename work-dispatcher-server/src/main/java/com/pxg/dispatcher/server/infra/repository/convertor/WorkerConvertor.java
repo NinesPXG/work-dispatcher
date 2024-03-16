@@ -1,7 +1,7 @@
 package com.pxg.dispatcher.server.infra.repository.convertor;
 
-import com.pxg.dispatcher.core.entity.WorkNode;
-import com.pxg.dispatcher.server.infra.repository.po.WorkNodePO;
+import com.pxg.dispatcher.core.entity.WorkerNode;
+import com.pxg.dispatcher.server.infra.repository.po.WorkerNodePO;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 
@@ -12,10 +12,10 @@ public interface WorkerConvertor {
 
     WorkerConvertor INSTANCE = Mappers.getMapper(WorkerConvertor.class);
 
-    List<WorkNode> toEntity(List<WorkNodePO> list);
+    List<WorkerNode> toEntity(List<WorkerNodePO> list);
 
-    WorkNode toEntity(WorkNodePO po);
+    WorkerNode toEntity(WorkerNodePO po);
 
-    WorkNodePO toPo(WorkNode workerNode);
+    WorkerNodePO toPo(WorkerNode workerNode);
 
 }

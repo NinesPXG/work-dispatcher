@@ -1,15 +1,15 @@
 package com.pxg.dispatcher.server.domain.worker;
 
-import com.pxg.dispatcher.core.entity.WorkNode;
+import com.pxg.dispatcher.core.entity.WorkerNode;
 
 import java.util.List;
 
 public interface WorkerRepository {
 
-    boolean register(WorkNode workNode);
+    boolean register(WorkerNode workerNode);
 
     boolean cancel(String workerId);
 
-    List<WorkNode> getRecentWorkers(String handlerCode);
+    List<WorkerNode> getRecentWorkers(String handlerCode);
 
 }

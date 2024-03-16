@@ -1,7 +1,7 @@
 package com.pxg.demo.app;
 
 import com.pxg.dispatcher.client.service.WorkerSupport;
-import com.pxg.dispatcher.core.entity.WorkNode;
+import com.pxg.dispatcher.core.entity.WorkerNode;
 import com.pxg.dispatcher.core.model.CompeteContractor;
 import com.pxg.dispatcher.core.model.Result;
 import com.pxg.dispatcher.core.model.WareHouse;
@@ -25,8 +25,8 @@ public class TestContractor extends CompeteContractor {
     private final WorkerSupport workerSupport;
 
     public Result execute() {
-        List<WorkNode> workNodes = workerSupport.getWorkers();
-        List<Worker> workers = workNodes.stream()
+        List<WorkerNode> workerNodes = workerSupport.getWorkers();
+        List<Worker> workers = workerNodes.stream()
                 .map(e -> DelegateHandler.bind(Worker.class, TestWorker.class.getName(), e))
                 .collect(Collectors.toList());
 

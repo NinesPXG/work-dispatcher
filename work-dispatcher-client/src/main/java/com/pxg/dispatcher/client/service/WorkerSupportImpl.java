@@ -1,7 +1,7 @@
 package com.pxg.dispatcher.client.service;
 
 import com.pxg.dispatcher.client.configuration.WorkerConfig;
-import com.pxg.dispatcher.core.entity.WorkNode;
+import com.pxg.dispatcher.core.entity.WorkerNode;
 import com.pxg.dispatcher.core.service.WorkerServiceI;
 
 import java.util.List;
@@ -18,8 +18,8 @@ public class WorkerSupportImpl implements WorkerSupport {
     }
 
     @Override
-    public String register(WorkNode workerInfo) {
-        return workerServiceI.register(workerInfo);
+    public String register(WorkerNode workerNode) {
+        return workerServiceI.register(workerNode);
     }
 
     @Override
@@ -28,13 +28,13 @@ public class WorkerSupportImpl implements WorkerSupport {
     }
 
     @Override
-    public List<WorkNode> getWorkers(String handlerCode) {
-        List<WorkNode> workNodes = workerServiceI.getWorkers(handlerCode);
-        return workNodes.parallelStream().filter(WorkNode::isAvailable).collect(Collectors.toList());
+    public List<WorkerNode> getWorkers(String handlerCode) {
+        List<WorkerNode> workerNodes = workerServiceI.getWorkers(handlerCode);
+        return workerNodes.parallelStream().filter(WorkerNode::isAvailable).collect(Collectors.toList());
     }
 
     @Override
-    public List<WorkNode> getWorkers() {
+    public List<WorkerNode> getWorkers() {
         return getWorkers(workerConfig.getHandlerCode());
     }
 

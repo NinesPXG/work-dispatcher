@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @TableName("dp_worker")
-public class WorkNodePO {
+public class WorkerNodePO {
 
     @TableId
     private String workerId;

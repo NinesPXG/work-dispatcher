@@ -1,15 +1,15 @@
 package com.pxg.dispatcher.core.service;
 
-import com.pxg.dispatcher.core.entity.WorkNode;
+import com.pxg.dispatcher.core.entity.WorkerNode;
 
 import java.util.List;
 
 public interface WorkerServiceI {
 
-    String register(WorkNode workerInfo);
+    String register(WorkerNode workerNode);
 
     boolean cancel(String workerId);
 
-    List<WorkNode> getWorkers(String handlerCode);
+    List<WorkerNode> getWorkers(String handlerCode);
 
 }

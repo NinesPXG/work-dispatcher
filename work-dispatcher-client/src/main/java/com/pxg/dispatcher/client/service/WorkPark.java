@@ -2,7 +2,7 @@ package com.pxg.dispatcher.client.service;
 
 import cn.hutool.core.net.NetUtil;
 import com.pxg.dispatcher.client.configuration.WorkerConfig;
-import com.pxg.dispatcher.core.entity.WorkNode;
+import com.pxg.dispatcher.core.entity.WorkerNode;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.DisposableBean;
 import org.springframework.boot.ApplicationArguments;
@@ -18,7 +18,7 @@ public class WorkPark implements ApplicationRunner, DisposableBean {
 
     private static final ScheduledExecutorService REGISTER = Executors.newSingleThreadScheduledExecutor();
 
-    private static WorkNode local;
+    private static WorkerNode local;
 
     private final WorkerSupport workerSupport;
 
@@ -30,7 +30,7 @@ public class WorkPark implements ApplicationRunner, DisposableBean {
     }
 
     private static void initLocalWorker(WorkerConfig workerConfig) {
-        local = new WorkNode();
+        local = new WorkerNode();
         local.setHandlerCode(workerConfig.getHandlerCode());
         local.setCluster("");
         local.setHost(NetUtil.getLocalhostStr());
@@ -38,7 +38,7 @@ public class WorkPark implements ApplicationRunner, DisposableBean {
         local.setCreatedTime(LocalDateTime.now());
     }
 
-    public static WorkNode getLocalWorker() {
+    public static WorkerNode getLocalWorker() {
         return local;
     }
 

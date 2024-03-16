@@ -1,7 +1,7 @@
 package com.pxg.dispatcher.server.service.impl;
 
 import cn.hutool.core.util.IdUtil;
-import com.pxg.dispatcher.core.entity.WorkNode;
+import com.pxg.dispatcher.core.entity.WorkerNode;
 import com.pxg.dispatcher.core.service.WorkerServiceI;
 import com.pxg.dispatcher.server.domain.worker.WorkerRepository;
 import lombok.RequiredArgsConstructor;
@@ -17,12 +17,12 @@ public class WorkerServiceImpl implements WorkerServiceI {
     private final WorkerRepository workerRepository;
 
     @Override
-    public String register(WorkNode workerInfo) {
-        if (!StringUtils.hasText(workerInfo.getWorkerId())) {
-            workerInfo.setWorkerId(IdUtil.getSnowflakeNextIdStr());
+    public String register(WorkerNode workerNode) {
+        if (!StringUtils.hasText(workerNode.getWorkerId())) {
+            workerNode.setWorkerId(IdUtil.getSnowflakeNextIdStr());
         }
-        workerRepository.register(workerInfo);
-        return workerInfo.getWorkerId();
+        workerRepository.register(workerNode);
+        return workerNode.getWorkerId();
     }
 
     @Override
@@ -31,7 +31,7 @@ public class WorkerServiceImpl implements WorkerServiceI {
     }
 
     @Override
-    public List<WorkNode> getWorkers(String handlerCode) {
+    public List<WorkerNode> getWorkers(String handlerCode) {
         return workerRepository.getRecentWorkers(handlerCode);
     }
 }

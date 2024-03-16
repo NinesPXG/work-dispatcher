@@ -1,6 +1,6 @@
 package com.pxg.dispatcher.core.model;
 
-import com.pxg.dispatcher.core.entity.WorkNode;
+import com.pxg.dispatcher.core.entity.WorkerNode;
 import org.springframework.util.StringUtils;
 
 public abstract class BaseWorker implements Worker {
@@ -12,7 +12,7 @@ public abstract class BaseWorker implements Worker {
     private int port;
 
 
-    public void bindWorkNode(WorkNode workerNode) {
+    public void bindWorkerNode(WorkerNode workerNode) {
         this.host = workerNode.getHost();
         this.port = workerNode.getPort();
     }

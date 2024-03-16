@@ -2,16 +2,13 @@ package com.pxg.dispatcher.core.proxy;
 
 import com.pxg.dispatcher.core.common.RemoteConst;
 import com.pxg.dispatcher.core.entity.Address;
-import com.pxg.dispatcher.core.model.Worker;
 import com.pxg.dispatcher.core.utils.HttpHelper;
 import com.pxg.dispatcher.core.utils.JsonUtil;
-import lombok.extern.slf4j.Slf4j;
 
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
 
-@Slf4j
 public class DelegateHandler implements InvocationHandler {
 
     private final String jar;
@@ -37,12 +34,7 @@ public class DelegateHandler implements InvocationHandler {
     @Override
     public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
         Invocation invocation = new Invocation(jar, method.getName(), method.getParameterTypes(), args);
-        try {
-            String result = HttpHelper.post(address.getUrl(RemoteConst.getRemoteWorkPath()), invocation);
-            return JsonUtil.readValue(result, method.getReturnType());
-        } catch (Exception e) {
-            log.error("remote execution error", e);
-            return null;
-        }
+        String result = HttpHelper.post(address.getUrl(RemoteConst.getRemoteWorkPath()), invocation);
+        return JsonUtil.readValue(result, method.getReturnType());
     }
 }

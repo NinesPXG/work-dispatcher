@@ -1,6 +1,6 @@
 package com.pxg.dispatcher.server.controller;
 
-import com.pxg.dispatcher.core.entity.WorkNode;
+import com.pxg.dispatcher.core.entity.WorkerNode;
 import com.pxg.dispatcher.core.service.WorkerServiceI;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -15,8 +15,8 @@ public class WorkerController {
     private final WorkerServiceI workerService;
 
     @PostMapping("register")
-    public String register(@RequestBody WorkNode workerInfo) {
-        return workerService.register(workerInfo);
+    public String register(@RequestBody WorkerNode workerNode) {
+        return workerService.register(workerNode);
     }
 
     @GetMapping("cancel")
@@ -25,7 +25,7 @@ public class WorkerController {
     }
 
     @GetMapping("list")
-    public List<WorkNode> getWorkers(@RequestParam String handlerCode) {
+    public List<WorkerNode> getWorkers(@RequestParam String handlerCode) {
         return workerService.getWorkers(handlerCode);
     }
 

@@ -1,7 +1,7 @@
 package com.pxg.dispatcher.core.entity;
 
-import cn.hutool.http.HttpRequest;
 import com.pxg.dispatcher.core.common.RemoteConst;
+import com.pxg.dispatcher.core.utils.HttpHelper;
 import com.pxg.dispatcher.core.utils.JsonUtil;
 import lombok.Data;
 
@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 import java.util.Objects;
 
 @Data
-public class WorkNode extends Address {
+public class WorkerNode extends Address {
 
     private String workerId;
 
@@ -27,11 +27,7 @@ public class WorkNode extends Address {
 
     public boolean isAvailable(int timeout) {
         try {
-            String response = HttpRequest.get(getUrl(RemoteConst.getHeartBeatPath()))
-                    .header(RemoteConst.RPC_SCRIP, getHandlerCode())
-                    .timeout(timeout)
-                    .execute()
-                    .body();
+            String response = HttpHelper.get(getUrl(RemoteConst.getHeartBeatPath()), timeout);
             return JsonUtil.readValue(response, Boolean.class);
         } catch (Exception e) {
             return false;
@@ -49,7 +45,7 @@ public class WorkNode extends Address {
         if (!super.equals(o)) {
             return false;
         }
-        WorkNode that = (WorkNode) o;
+        WorkerNode that = (WorkerNode) o;
         return Objects.equals(handlerCode, that.handlerCode);
     }
 

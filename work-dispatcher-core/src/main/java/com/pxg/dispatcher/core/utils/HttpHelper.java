@@ -4,12 +4,14 @@ import lombok.SneakyThrows;
 import org.apache.hc.client5.http.classic.HttpClient;
 import org.apache.hc.client5.http.classic.methods.HttpGet;
 import org.apache.hc.client5.http.classic.methods.HttpPost;
+import org.apache.hc.client5.http.config.RequestConfig;
 import org.apache.hc.client5.http.impl.classic.BasicHttpClientResponseHandler;
 import org.apache.hc.client5.http.impl.classic.HttpClientBuilder;
 import org.apache.hc.core5.http.ClassicHttpRequest;
 import org.apache.hc.core5.http.ContentType;
 import org.apache.hc.core5.http.io.HttpClientResponseHandler;
 import org.apache.hc.core5.http.io.entity.StringEntity;
+import org.apache.hc.core5.util.Timeout;
 
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -31,8 +33,23 @@ public class HttpHelper {
         return execute(httpGet);
     }
 
+    public static String get(String url, long timeout) {
+        HttpGet httpGet = new HttpGet(ofUrl(url));
+        httpGet.setConfig(requestTimeoutConfig(timeout));
+        return execute(httpGet);
+    }
+
     public static String post(String url, Object body) {
         HttpPost httpPost = new HttpPost(ofUrl(url));
+        if (body != null) {
+            httpPost.setEntity(new StringEntity(JsonUtil.writeJson(body), ContentType.APPLICATION_JSON));
+        }
+        return execute(httpPost);
+    }
+
+    public static String post(String url, Object body, long timeout) {
+        HttpPost httpPost = new HttpPost(ofUrl(url));
+        httpPost.setConfig(requestTimeoutConfig(timeout));
         if (body != null) {
             httpPost.setEntity(new StringEntity(JsonUtil.writeJson(body), ContentType.APPLICATION_JSON));
         }
@@ -44,6 +61,13 @@ public class HttpHelper {
         return defaultHttpClient.execute(request, DEFAULT_RESPONSE_HANDLER);
     }
 
+
+    private static RequestConfig requestTimeoutConfig(long timeout) {
+        return RequestConfig.custom()
+                .setConnectionRequestTimeout(Timeout.ofMilliseconds(timeout))
+                .setResponseTimeout(Timeout.ofMilliseconds(timeout))
+                .build();
+    }
 
     private static String ofUrl(String url) {
         if (!url.startsWith(SCHEMA_HTTP) && !url.startsWith(SCHEMA_HTTPS)) {

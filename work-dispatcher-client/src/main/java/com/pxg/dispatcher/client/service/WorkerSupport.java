@@ -1,19 +1,19 @@
 package com.pxg.dispatcher.client.service;
 
 
-import com.pxg.dispatcher.core.entity.WorkNode;
+import com.pxg.dispatcher.core.entity.WorkerNode;
 
 import java.util.List;
 
 public interface WorkerSupport {
 
-    String register(WorkNode workerInfo);
+    String register(WorkerNode workerInfo);
 
     boolean cancel(String workerId);
 
-    List<WorkNode> getWorkers(String handlerCode);
+    List<WorkerNode> getWorkers(String handlerCode);
 
-    default List<WorkNode> getWorkers() {
+    default List<WorkerNode> getWorkers() {
         return getWorkers("");
     }
 
