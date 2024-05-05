@@ -1,4 +1,4 @@
-package com.pxg.demo.app;
+package com.pxg.demo.application;
 
 import com.pxg.dispatcher.core.model.BaseWorker;
 import com.pxg.dispatcher.core.model.Result;

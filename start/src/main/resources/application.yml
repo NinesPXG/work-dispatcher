@@ -9,14 +9,14 @@ spring:
   messages:
     basename: i18n/messages
     encoding: UTF-8
-  mvc:
-    pathmatch:
-      matching-strategy: ant_path_matcher
   datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://127.0.0.1:3306/platformdb
-    username: sup
-    password: 1142302o7oP
+    driver-class-name: org.apache.shardingsphere.driver.ShardingSphereDriver
+    url: jdbc:shardingsphere:classpath:sharding.yaml
+#  datasource:
+#    driver-class-name: com.mysql.cj.jdbc.Driver
+#    url: jdbc:mysql://127.0.0.1:3306/platformdb
+#    username: sup
+#    password: 1142302o7oP
 
 mybatis-plus:
   type-aliases-package: com.pxg.example.domain

@@ -1,4 +1,4 @@
-package com.pxg.demo.app;
+package com.pxg.demo.application;
 
 import com.pxg.dispatcher.client.service.WorkerSupport;
 import com.pxg.dispatcher.core.entity.WorkerNode;

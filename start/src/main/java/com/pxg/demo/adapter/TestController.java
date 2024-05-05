@@ -1,6 +1,7 @@
-package com.pxg.demo.app;
+package com.pxg.demo.adapter;
 
 import com.alibaba.cola.dto.SingleResponse;
+import com.pxg.demo.application.TestContractor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;

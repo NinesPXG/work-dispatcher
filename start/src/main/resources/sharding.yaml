@@ -1,0 +1,42 @@
+dataSources:
+  ds_0:
+    dataSourceClassName: com.zaxxer.hikari.HikariDataSource
+    driverClassName: com.mysql.jdbc.Driver
+    jdbcUrl: jdbc:mysql://127.0.0.1:3306/platformdb?serverTimezone=UTC&useSSL=false
+    username: sup
+    password: 1142302o7oP
+  ds_1:
+    dataSourceClassName: com.zaxxer.hikari.HikariDataSource
+    driverClassName: com.mysql.jdbc.Driver
+    jdbcUrl: jdbc:mysql://127.0.0.1:3306/test_db?serverTimezone=UTC&useSSL=false
+    username: sup
+    password: 1142302o7oP
+
+rules:
+  - !SHARDING
+    autoTables:
+      user_info:
+        actualDataSources: ds_1
+        shardingStrategy:
+          standard:
+            shardingColumn: account_id
+            shardingAlgorithmName: user_table_sharding
+    tables:
+      term:
+        actualDataNodes: ds_1.term_${2022..2024}
+        tableStrategy:
+          standard:
+            shardingColumn: annual
+            shardingAlgorithmName: term_table_sharding
+    shardingAlgorithms:
+      user_table_sharding:
+        type: MOD
+        props:
+          sharding-count: 2
+      term_table_sharding:
+        type: INLINE
+        props:
+          algorithm-expression: term_$->{annual}
+
+props:
+  sql-show: true
