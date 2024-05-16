@@ -7,6 +7,7 @@ public enum BaseErrorCode implements IErrorCode {
     TARGET_EXCEPTION("target not found!"),
     INVOKE_EXCEPTION("invoke meet exception!"),
     BUSINESS_EXCEPTION("{0}"),
+    SECURITY_FORBIDDEN("forbidden by security"),
     UNDEFINED_EXCEPTION("meet unexpected exception while running");
 
     private final String errorMsg;

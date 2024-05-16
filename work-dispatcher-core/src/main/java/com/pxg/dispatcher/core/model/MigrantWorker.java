@@ -1,12 +1,15 @@
 package com.pxg.dispatcher.core.model;
 
-import com.pxg.dispatcher.core.proxy.Delegate;
 import org.springframework.util.StringUtils;
 
 public class MigrantWorker extends BaseWorker {
 
     private String workerJarName;
 
+
+    public void setWorkerJar(Class<?> clazz) {
+        setWorkerJar(clazz.getName());
+    }
 
     public void setWorkerJar(String workerJarName) {
         this.workerJarName = workerJarName;
@@ -18,19 +21,16 @@ public class MigrantWorker extends BaseWorker {
     }
 
 
-    @Delegate
     @Override
     public boolean receive(WareHouse data) {
         return false;
     }
 
-    @Delegate
     @Override
     public Result doWork(WareHouse task) {
         return null;
     }
 
-    @Delegate
     @Override
     public void stopWork() {
 

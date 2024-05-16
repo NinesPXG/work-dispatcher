@@ -20,10 +20,12 @@ public class PerformFilter implements Filter {
 
     private final WorkerConfig workerConfig;
     private final PerformHandler performHandler;
+    private final InvokeSecureChecker secureChecker;
 
     public PerformFilter(WorkerConfig workerConfig, PerformHandler performHandler) {
         this.workerConfig = workerConfig;
         this.performHandler = performHandler;
+        this.secureChecker = new InvokeSecureChecker(workerConfig);
     }
 
 
@@ -57,11 +59,21 @@ public class PerformFilter implements Filter {
         writeResponse(response, result);
     }
 
+    private void failSecurity(HttpServletResponse response) {
+        Result result = Result.buildFailure(BaseErrorCode.SECURITY_FORBIDDEN.getCode(), BaseErrorCode.SECURITY_FORBIDDEN.getMessage());
+        writeResponse(response, result);
+    }
+
     private void perform(HttpServletRequest request, HttpServletResponse response) {
         if (isHeartBeat(request)) {
             writeResponse(response, performHandler.heartbeat());
+            return;
+        }
+        Invocation invocation = readRequest(request, Invocation.class);
+        if (secureChecker.check(invocation)) {
+            writeResponse(response, performHandler.run(invocation));
         } else {
-            writeResponse(response, performHandler.run(readRequest(request, Invocation.class)));
+            failSecurity(response);
         }
     }
 
